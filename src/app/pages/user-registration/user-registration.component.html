@@ -1,0 +1,43 @@
+<div class="container-fluid p-5  w-100 h-75 ">
+    <div class="p-5 ml-5 ">
+        <img src="/assets/logo.png" alt="">
+       
+        <div class="mt-5">
+            <h2>Cadastre-se</h2>
+            <small>Realize seu cadastro preechendo os dados abaixo</small>
+        </div>
+        <div class="d-flex  justify-content-between" >
+            
+            <form class="form-group mt-5 px-2 " [formGroup]="signupForm" (ngSubmit)="registerUser()">
+                <div>
+                    <label for="exampleInputEmail1">NOME</label>
+                    <input formControName="name_user" type="text" class="form-control" id="exampleInputEmail1">
+                </div>
+                <div>
+                    <label for="exampleInputEmail1">EMAIL</label>
+                    <input formControName="email_user" type="email" class="form-control" id="exampleInputEmail1">
+                </div>
+                <div class="pt-4 ">
+                    <label for="exampleInputEmail1">SENHA</label>
+                    <input formControName="password" type="password" class="form-control" id="exampleInputEmail1">
+                </div>
+                <div class="mt-2">
+                    <button type="submit" class="btn btn-outline-danger">Cadastrar</button>
+                </div>
+                
+    
+    
+            </form>
+            <div class=" d-flex px-5 mx-5" style="margin-top: -9%;">
+                <img src="/assets/imagem.png"  alt="">
+            </div>
+            
+        </div>
+        
+
+    </div>
+
+
+
+
+</div>

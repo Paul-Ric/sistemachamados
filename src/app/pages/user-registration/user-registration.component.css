@@ -1,0 +1,24 @@
+h2{
+    color:#9C0000 
+}
+small{
+    color: black;
+}
+label{
+    color: dimgray;
+}
+input{
+    border-radius: 14px;
+    background-color: rgb(231, 229, 229);
+}
+.container{
+    display: flex;
+    align-items: center;
+}
+.form-control{
+    width: 320px;
+}
+.btn{
+    border-radius: 11px;
+
+}

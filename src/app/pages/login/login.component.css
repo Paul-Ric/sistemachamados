@@ -1,5 +1,11 @@
+*{
+    
+}
 h2{
     color:#9C0000 
+}
+.image{
+    z-index: 2000;
 }
 small{
     color: black;
@@ -11,6 +17,7 @@ input{
     border-radius: 14px;
     background-color: rgb(231, 229, 229);
 }
+
 .container{
     display: flex;
     align-items: center;
@@ -20,5 +27,16 @@ input{
 }
 .btn{
     border-radius: 11px;
+}
 
+@media(max-width:1024px){
+    .container-fluid{
+        grid-template-columns: 100%;
+        display: flexbox;
+        justify-content: center;
+        align-items: center;
+    }
+    .image{
+        display: none;
+    }
 }

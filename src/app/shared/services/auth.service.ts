@@ -1,32 +1,44 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/pages/user-registration/shared/models/user.model';
 import { Observable,throwError } from 'rxjs';
 import { catchError,map } from 'rxjs/operators';
 import { HttpClient,HttpHeaders,HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { User } from 'src/app/models/login.model';
+import {JwtHelperService} from '@auth0/angular-jwt'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  endpoint:string ='https://help-desk-node.herokuapp.com/cadastro'
+  
+  helpDesk:string=environment.api
   headers= new HttpHeaders().set('Content-Type', 'application/json; charset=UTF-8')
   currentUser={}
+  jwt:JwtHelperService= new JwtHelperService
 
-  constructor(private http:HttpClient, public router:Router) { }
-
-  signUp(user:User):Observable<any>{
-    let api = `${this.endpoint}`
-    return this.http.post(api,user).pipe(catchError(this.handleError))
-  }
+  constructor(
+     private http:HttpClient,
+     public router:Router
+     ) {
+     
+   }
   signIn(user:User){
-    return this.http.post<any>(`${this.endpoint}/login`,user).subscribe((response:any)=>{
-      localStorage.setItem('acess_token',response.token)
-      this.getUserProfile(response.name).subscribe((response)=>{
-        this.currentUser= response
-        this.router.navigate(['home/'+response.name])
-      })
+    return this.http.post(`${this.helpDesk}/login`, user, {
+      observe: 'response',
+      responseType: 'text'
     })
+    
+  }
+  setToken(auth:string){
+    localStorage.setItem('access_token',auth)
+  }
+  isAutheticated(){
+    let token= localStorage.getItem('access_token')
+    if(token != null){
+      return !this.jwt.isTokenExpired(token)
+    }
+    return false
   }
 
   getToken(){
@@ -43,15 +55,7 @@ export class AuthService {
     }
   }
 
-  getUserProfile(name:string):Observable<any>{
-    let api= `${this.endpoint}`
-    return this.http.get(api,{headers:this.headers}).pipe(
-      map((response)=>{
-        return response || {}
-      }),
-      catchError(this.handleError)
-    )
-  }
+  
   handleError(error: HttpErrorResponse) {
     let msg = '';
     if (error.error instanceof ErrorEvent) {
